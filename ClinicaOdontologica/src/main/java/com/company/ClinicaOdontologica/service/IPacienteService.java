@@ -1,7 +1,5 @@
 package com.company.ClinicaOdontologica.service;
 
-
-
 import com.company.ClinicaOdontologica.dto.PacienteDTO;
 import com.company.ClinicaOdontologica.entity.Paciente;
 import com.company.ClinicaOdontologica.exceptions.ResourceNotFoundException;

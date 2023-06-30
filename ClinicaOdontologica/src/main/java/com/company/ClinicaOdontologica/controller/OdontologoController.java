@@ -3,7 +3,6 @@ package com.company.ClinicaOdontologica.controller;
 import com.company.ClinicaOdontologica.dto.OdontologoDTO;
 import com.company.ClinicaOdontologica.dto.TurnoDTO;
 import com.company.ClinicaOdontologica.entity.Odontologo;
-import com.company.ClinicaOdontologica.exceptions.ResourceNotFoundException;
 import com.company.ClinicaOdontologica.service.impl.OdontologoService;
 import com.company.ClinicaOdontologica.service.impl.TurnoService;
 import org.springframework.http.HttpStatus;
@@ -20,11 +19,6 @@ public class OdontologoController {
     TurnoService turnoService;
 
     // Constructor de OdontologoController que permite la inyección de dependencias.
-//    public OdontologoController(OdontologoService odontologoService) {
-//        this.odontologoService = odontologoService;
-//    }
-
-
     public OdontologoController(OdontologoService odontologoService, TurnoService turnoService) {
         this.odontologoService = odontologoService;
         this.turnoService = turnoService;

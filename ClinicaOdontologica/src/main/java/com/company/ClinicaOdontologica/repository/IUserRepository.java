@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Repository
-@Transactional
+@Transactional  // Se utiliza para asegurar la consistencia de los datos en las operaciones de lectura y escritura.
 public interface IUserRepository extends JpaRepository<AppUsuarios, Long> {
-    Optional<AppUsuarios> findByEmail(String email);
+    Optional<AppUsuarios> findByEmail(String email);  // Busca un usuario por su dirección de correo electrónico.
 }

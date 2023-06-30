@@ -9,12 +9,13 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Entity
-@Table(name = "USUARIOS")
+@Table(name = "USUARIOS") // Establecemos el nombre de la tabla en la BD
 public class AppUsuarios implements UserDetails {
 
+    // Establecemos el Id como Primary Key de tipo indentity
     @Id
-    @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
+    @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)  // Define un generador de secuencia con nombre "user_sequence" que se utilizará para generar valores de ID
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")  // Especifica la estrategia de generación de valores de ID utilizando una secuencia y el generador "user_sequence"
     private Long id;
 
     private String nombre;
@@ -25,9 +26,10 @@ public class AppUsuarios implements UserDetails {
 
     private String password;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)  // Anotación utilizada para especificar cómo se debe mapear la propiedad enum a la base de datos
     private AppUsuariosRoles appUsuariosRoles;
 
+    // Constructor sin parametros
     public AppUsuarios() {
     }
 
@@ -43,7 +45,6 @@ public class AppUsuarios implements UserDetails {
         return id;
     }
 
-
     public String getNombre() {
         return nombre;
     }
@@ -56,7 +57,6 @@ public class AppUsuarios implements UserDetails {
         return username;
     }
 
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -68,7 +68,6 @@ public class AppUsuarios implements UserDetails {
     public void setEmail(String email) {
         this.email = email;
     }
-
 
     public String getPassword() {
         return password;
@@ -88,8 +87,8 @@ public class AppUsuarios implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_" + appUsuariosRoles.name());
-        return Collections.singletonList(grantedAuthority);
+        SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_" + appUsuariosRoles.name());  // Crear una instancia de SimpleGrantedAuthority con el nombre del rol
+        return Collections.singletonList(grantedAuthority);    // Devolver la lista de autoridades (roles)
     }
 
     @Override

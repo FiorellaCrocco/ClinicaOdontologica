@@ -47,7 +47,6 @@ public class TurnoController {
     public ResponseEntity<?> guardarTurno(@RequestBody Turno turno) {
         turnoService.guardar(turno);
         return ResponseEntity.ok("Turno agregado");
-        //return ResponseEntity.ok( turnoService.guardar(turno));
     }
 
     // En la url "/turno/modificar" actualizamos un turno ya existente

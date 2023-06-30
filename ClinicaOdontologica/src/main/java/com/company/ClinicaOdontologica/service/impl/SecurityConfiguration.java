@@ -17,12 +17,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private AppUserService appUserService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    // Constructor de SecurityConfiguration que permite la inyección de dependencias.
     @Autowired
     public SecurityConfiguration(AppUserService usuarioService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.appUserService = usuarioService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    // Configura la seguridad HTTP para la aplicación.
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -40,11 +42,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     }
 
+    // Configura el administrador de autenticación para la aplicación.
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(daoAuthenticationProvider());
     }
 
+    // Configura el proveedor de autenticación con el codificador de contraseñas y el servicio de detalles de usuario.
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();

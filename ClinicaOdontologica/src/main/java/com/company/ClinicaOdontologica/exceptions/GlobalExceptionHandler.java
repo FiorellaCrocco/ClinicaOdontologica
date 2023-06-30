@@ -16,7 +16,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({ResourceNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Map<String, String> procesarNotFoundException(ResourceNotFoundException exception){
-        Map<String, String> exceptionMessage = new HashMap<>();
+        Map<String, String> exceptionMessage = new HashMap<>();  // Se crea un map para almacenar el mensaje de error.
         exceptionMessage.put("message", "Recurso no encontrado: " + exception.getMessage());
         logger.warn(exceptionMessage.put("message", "Recurso no encontrado: " + exception.getMessage()));
         return exceptionMessage;

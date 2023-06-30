@@ -21,7 +21,7 @@ public class OdontologoService implements IOdontologoService {
     // Repositorio de Odontólogos utilizado para acceder a la base de datos.
     private final IOdontologoRepository iOdontologoRepository;
 
-    // Para la conversión de objetos:
+    // Para la conversión de objetos.
     private final ObjectMapper objectMapper;
 
     // Constructor de OdontologoService que permite la inyección de dependencias.
