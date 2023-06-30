@@ -1,12 +1,19 @@
-function deleteBy(id){
+// Función para eliminar un odontólogo por su ID
+function deleteBy(id) {
+    // Construir la URL para la eliminación del odontólogo
+    const url = '/odontologo/eliminar/' + id;
 
-          const url = '/odontologo/eliminar/'+ id;
-          const settings = {
-              method: 'DELETE'
-          }
-          fetch(url,settings)
-          .then(response => response.json())
+    // Configuración de la petición de eliminación
+    const settings = {
+        method: 'DELETE'
+    };
 
-          let row_id = "#tr_" + id;
-          document.querySelector(row_id).remove();
+    // Realizar la petición de eliminación
+    fetch(url, settings)
+        .then(response => response.json())
+        .then(data => {
+            // Eliminar la fila correspondiente al odontólogo eliminado
+            let row_id = "#tr_" + id;
+            document.querySelector(row_id).remove();
+        });
 }
