@@ -83,4 +83,15 @@ public class TurnoService implements ITurnoService {
         }
     }
 
+    @Override
+    public List<TurnoDTO> buscarPorIdOdontologo(Long idOdontologo) {
+        List<Turno> turnos = iTurnoRepository.findByOdontologoId(idOdontologo);
+
+        List<TurnoDTO> turnoDTOS = new ArrayList<>();  // Creamos un ArrayList de tipo TurnoDTO
+        for (Turno t : turnos){    // Iteramos el array
+            turnoDTOS.add(objectMapper.convertValue(t,TurnoDTO.class));  // En cada iteración convertimos el objeto de tipo Turno a TurnoDTO y lo agregamos al ArrayList
+        }
+        return turnoDTOS;
+    }
+
 }

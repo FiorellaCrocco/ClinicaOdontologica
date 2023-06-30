@@ -19,4 +19,6 @@ public interface ITurnoService {
     Turno guardar(Turno turno);
 
     void eliminar(Long id) throws ResourceNotFoundException;
+
+    List<TurnoDTO> buscarPorIdOdontologo(Long idOdontologo);
 }

@@ -1,9 +1,11 @@
 package com.company.ClinicaOdontologica.controller;
 
 import com.company.ClinicaOdontologica.dto.OdontologoDTO;
+import com.company.ClinicaOdontologica.dto.TurnoDTO;
 import com.company.ClinicaOdontologica.entity.Odontologo;
 import com.company.ClinicaOdontologica.exceptions.ResourceNotFoundException;
 import com.company.ClinicaOdontologica.service.impl.OdontologoService;
+import com.company.ClinicaOdontologica.service.impl.TurnoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +17,17 @@ import java.util.List;
 public class OdontologoController {
 
     OdontologoService odontologoService;
+    TurnoService turnoService;
 
     // Constructor de OdontologoController que permite la inyección de dependencias.
-    public OdontologoController(OdontologoService odontologoService) {
+//    public OdontologoController(OdontologoService odontologoService) {
+//        this.odontologoService = odontologoService;
+//    }
+
+
+    public OdontologoController(OdontologoService odontologoService, TurnoService turnoService) {
         this.odontologoService = odontologoService;
+        this.turnoService = turnoService;
     }
 
     // En la url "/odontologo/listar" retorno una lista de OdontologoDTO
@@ -48,9 +57,26 @@ public class OdontologoController {
 
     // En la url "/odontologo/eliminar/{id}" utilizamos el metodo DELETE para eliminar un odontólogo segun su ID, si no se encuentra lanzo la exception ResourceNotFoundException
     @DeleteMapping("/eliminar/{id}")
-    public ResponseEntity<?> eliminarUnOdontologo(@PathVariable Long id) throws ResourceNotFoundException {
-        odontologoService.eliminar(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Eliminado");
+    public ResponseEntity<?> eliminarUnOdontologo(@PathVariable Long id) throws Exception {
+        ResponseEntity<String> response = null;
+        OdontologoDTO odontologoDTO = odontologoService.buscarPorId(id);
+        if (odontologoDTO != null) {
+            List<TurnoDTO> turnosRelacionados = turnoService.buscarPorIdOdontologo(id);
+            if (turnosRelacionados.isEmpty()) {
+                odontologoService.eliminar(id);
+                response = ResponseEntity.status(HttpStatus.NO_CONTENT).body("Eliminado");
+            } else {
+                // Eliminar los turnos relacionados
+                for (TurnoDTO turno : turnosRelacionados) {
+                    turnoService.eliminar(turno.getId());
+                }
+                odontologoService.eliminar(id);
+                response = ResponseEntity.status(HttpStatus.NO_CONTENT).body("Eliminado junto con los turnos relacionados");
+            }
+        } else {
+            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return response;
     }
 
 }
